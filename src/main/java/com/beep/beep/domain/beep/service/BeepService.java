@@ -8,6 +8,7 @@ import com.beep.beep.domain.beep.exception.RoomNotExistsException;
 import com.beep.beep.domain.beep.mapper.BeepMapper;
 import com.beep.beep.domain.beep.presentation.dto.AttendanceVO;
 import com.beep.beep.domain.beep.presentation.dto.RoomVO;
+import com.beep.beep.domain.beep.presentation.dto.request.FloorRoomReq;
 import com.beep.beep.domain.beep.presentation.dto.request.InitializeAttendanceReq;
 import com.beep.beep.domain.beep.presentation.dto.request.EnterRoomReq;
 import com.beep.beep.domain.beep.presentation.dto.request.ExitRoomReq;
@@ -63,8 +64,8 @@ public class BeepService {
         return roomRepository.roomListByName(name);
     }
 
-    public List<RoomByFloorRes> roomListByFloor(Integer floor){
-        return roomRepository.roomListByFloor(floor);
+    public List<RoomByFloorRes> roomListByFloor(FloorRoomReq req){
+        return roomRepository.roomListByFloor(req);
     }
 
     public List<AttendanceByCodeRes> attendanceByCode(String code){

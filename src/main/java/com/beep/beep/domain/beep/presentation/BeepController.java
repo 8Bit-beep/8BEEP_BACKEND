@@ -1,5 +1,6 @@
 package com.beep.beep.domain.beep.presentation;
 
+import com.beep.beep.domain.beep.presentation.dto.request.FloorRoomReq;
 import com.beep.beep.domain.beep.presentation.dto.request.InitializeAttendanceReq;
 import com.beep.beep.domain.beep.presentation.dto.response.RoomByFloorRes;
 import com.beep.beep.domain.beep.service.BeepService;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,9 +71,9 @@ public class BeepController {
     @GetMapping("/rooms/floor")
     @Operation(summary = "실 조회", description = "n층으로 실을 조회합니다.(teacher)")
     public ResponseEntity<List<RoomByFloorRes>> roomListByFloor(
-            @RequestParam Integer floor
-    ){
-        return ResponseEntity.ok(beepService.roomListByFloor(floor));
+            @ModelAttribute FloorRoomReq req
+            ){
+        return ResponseEntity.ok(beepService.roomListByFloor(req));
     }
 
     @GetMapping("/attendances")
