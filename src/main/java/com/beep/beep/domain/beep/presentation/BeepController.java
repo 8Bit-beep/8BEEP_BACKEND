@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,26 +60,26 @@ public class BeepController {
 
     @GetMapping("/rooms/name")
     @Operation(summary = "실 조회", description = "실 이름으로 실을 조회합니다.(teacher)")
-    public List<RoomVO> roomListByName(
+    public ResponseEntity<List<RoomVO>> roomListByName(
             @RequestParam String name
     ){
-        return beepService.roomListByName(name);
+        return ResponseEntity.ok(beepService.roomListByName(name));
     }
 
     @GetMapping("/rooms/floor")
     @Operation(summary = "실 조회", description = "n층으로 실을 조회합니다.(teacher)")
-    public List<RoomByFloorRes> roomListByFloor(
+    public ResponseEntity<List<RoomByFloorRes>> roomListByFloor(
             @RequestParam Integer floor
     ){
-        return beepService.roomListByFloor(floor);
+        return ResponseEntity.ok(beepService.roomListByFloor(floor));
     }
 
     @GetMapping("/attendances")
     @Operation(summary = "출석 조회", description = "실 코드로 입실한 학생목록 조회합니다. (teacher)")
-    public List<AttendanceByCodeRes> attendanceByCode(
+    public ResponseEntity<List<AttendanceByCodeRes>> attendanceByCode(
             @RequestParam String code
     ){
-        return beepService.attendanceByCode(code);
+        return ResponseEntity.ok(beepService.attendanceByCode(code));
     }
 
 }

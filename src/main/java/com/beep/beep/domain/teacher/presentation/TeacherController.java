@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,8 +48,8 @@ public class TeacherController {
 
     @GetMapping("/info")
     @Operation(summary = "선생님프로필 조회", description = "선생님프로필 조회합니다. (teacher)")
-    public TeacherByUserRes teacherByUser() {
-        return teacherService.teacherByUser();
+    public ResponseEntity<TeacherByUserRes> teacherByUser() {
+        return ResponseEntity.ok(teacherService.teacherByUser());
     }
 
 
