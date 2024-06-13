@@ -65,7 +65,7 @@ public class BeepController {
     public ResponseEntity<List<RoomVO>> roomListByName(
             @RequestParam String name
     ){
-        return ResponseEntity.ok(beepService.roomListByName(name));
+        return ResponseEntity.ok().body(beepService.roomListByName(name));
     }
 
     @GetMapping("/rooms/floor")
@@ -73,7 +73,7 @@ public class BeepController {
     public ResponseEntity<List<RoomByFloorRes>> roomListByFloor(
             @ModelAttribute FloorRoomReq req
             ){
-        return ResponseEntity.ok(beepService.roomListByFloor(req));
+        return ResponseEntity.ok().body(beepService.roomListByFloor(req));
     }
 
     @GetMapping("/attendances")
@@ -81,7 +81,7 @@ public class BeepController {
     public ResponseEntity<List<AttendanceByCodeRes>> attendanceByCode(
             @RequestParam String code
     ){
-        return ResponseEntity.ok(beepService.attendanceByCode(code));
+        return ResponseEntity.ok().body(beepService.attendanceByCode(code));
     }
 
 }
