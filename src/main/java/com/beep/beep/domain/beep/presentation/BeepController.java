@@ -1,7 +1,8 @@
 package com.beep.beep.domain.beep.presentation;
 
-import com.beep.beep.domain.beep.presentation.dto.request.FloorRoomReq;
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByFloorReq;
 import com.beep.beep.domain.beep.presentation.dto.request.InitializeAttendanceReq;
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByNameReq;
 import com.beep.beep.domain.beep.presentation.dto.response.RoomByFloorRes;
 import com.beep.beep.domain.beep.service.BeepService;
 import com.beep.beep.domain.beep.presentation.dto.request.EnterRoomReq;
@@ -63,16 +64,16 @@ public class BeepController {
     @GetMapping("/rooms/name")
     @Operation(summary = "실 조회", description = "실 이름으로 실을 조회합니다.(teacher)")
     public ResponseEntity<List<RoomVO>> roomListByName(
-            @RequestParam String name
+            @ModelAttribute RoomsByNameReq req
     ){
-        return ResponseEntity.ok().body(beepService.roomListByName(name));
+        return ResponseEntity.ok().body(beepService.roomListByName(req));
     }
 
     @GetMapping("/rooms/floor")
     @Operation(summary = "실 조회", description = "n층으로 실을 조회합니다.(teacher)")
     public ResponseEntity<List<RoomByFloorRes>> roomListByFloor(
-            @ModelAttribute FloorRoomReq req
-            ){
+            @ModelAttribute RoomsByFloorReq req
+    ){
         return ResponseEntity.ok().body(beepService.roomListByFloor(req));
     }
 

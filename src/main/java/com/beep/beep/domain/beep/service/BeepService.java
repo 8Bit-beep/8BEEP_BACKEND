@@ -8,10 +8,11 @@ import com.beep.beep.domain.beep.exception.RoomNotExistsException;
 import com.beep.beep.domain.beep.mapper.BeepMapper;
 import com.beep.beep.domain.beep.presentation.dto.AttendanceVO;
 import com.beep.beep.domain.beep.presentation.dto.RoomVO;
-import com.beep.beep.domain.beep.presentation.dto.request.FloorRoomReq;
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByFloorReq;
 import com.beep.beep.domain.beep.presentation.dto.request.InitializeAttendanceReq;
 import com.beep.beep.domain.beep.presentation.dto.request.EnterRoomReq;
 import com.beep.beep.domain.beep.presentation.dto.request.ExitRoomReq;
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByNameReq;
 import com.beep.beep.domain.beep.presentation.dto.response.AttendanceByCodeRes;
 import com.beep.beep.domain.beep.presentation.dto.response.RoomByFloorRes;
 import com.beep.beep.global.common.service.UserUtil;
@@ -60,11 +61,11 @@ public class BeepService {
         attendanceRepository.save(beepMapper.toEdit(attendance));
     }
 
-    public List<RoomVO> roomListByName(String name){
-        return roomRepository.roomListByName(name);
+    public List<RoomVO> roomListByName(RoomsByNameReq req){
+        return roomRepository.roomListByName(req);
     }
 
-    public List<RoomByFloorRes> roomListByFloor(FloorRoomReq req){
+    public List<RoomByFloorRes> roomListByFloor(RoomsByFloorReq req){
         return roomRepository.roomListByFloor(req);
     }
 

@@ -3,7 +3,8 @@ package com.beep.beep.domain.beep.domain.repository.querydsl.impl;
 
 import com.beep.beep.domain.beep.domain.repository.querydsl.RoomRepoCustom;
 import com.beep.beep.domain.beep.presentation.dto.RoomVO;
-import com.beep.beep.domain.beep.presentation.dto.request.FloorRoomReq;
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByFloorReq;
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByNameReq;
 import com.beep.beep.domain.beep.presentation.dto.response.RoomByFloorRes;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,18 +21,19 @@ public class RoomRepoCustomImpl implements RoomRepoCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public List<RoomVO> roomListByName(String name) {
+    public List<RoomVO> roomListByName(RoomsByNameReq req) {
         return query.select(Projections.constructor(RoomVO.class,
                         room.code,
                         room.floor,
                         room.name))
                 .from(room)
-                .where(room.name.contains(name))
+                .where(room.name.contains(req.getName()))
+                .offset((req.getPage() - 1) * req.getSize())
                 .fetch();
     }
 
     @Override
-    public List<RoomByFloorRes> roomListByFloor(FloorRoomReq req) {
+    public List<RoomByFloorRes> roomListByFloor(RoomsByFloorReq req) {
         return query.select(Projections.constructor(RoomByFloorRes.class,
                 room.code,
                 room.name))

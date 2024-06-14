@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FloorRoomReq extends PageRequest {
+public class RoomsByFloorReq extends PageRequest {
 
     private Integer floor;
 
