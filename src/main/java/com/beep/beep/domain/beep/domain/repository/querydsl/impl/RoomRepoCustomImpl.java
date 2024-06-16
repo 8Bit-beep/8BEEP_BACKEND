@@ -35,12 +35,14 @@ public class RoomRepoCustomImpl implements RoomRepoCustom {
     @Override
     public List<RoomByFloorRes> roomListByFloor(RoomsByFloorReq req) {
         return query.select(Projections.constructor(RoomByFloorRes.class,
+                room.idx,
                 room.code,
                 room.name))
                 .from(room)
                 .where(room.floor.eq(req.getFloor()))
                 .offset((req.getPage() - 1) * req.getSize())
                 .limit(req.getSize())
+                .orderBy(room.idx.asc())
                 .fetch();
     }
 
