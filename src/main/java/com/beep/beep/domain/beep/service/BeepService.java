@@ -78,7 +78,7 @@ public class BeepService {
     }
 
     private void existsByCode(String code){
-        if(!roomRepository.existsById(code))
+        if(!roomRepository.existsByCode(code))
             throw RoomNotExistsException.EXCEPTION; // room 존재 여부 확인
     }
 
