@@ -66,6 +66,7 @@ public class UserController {
         userService.idCheck(id);
         Map<String, String> response = new HashMap<>();
         response.put("status", "200");
+        response.put("message","사용할 수 있는 아이디입니다.");
         return ResponseEntity.ok(response);
     }
 
