@@ -7,6 +7,7 @@ import com.beep.beep.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -56,10 +57,11 @@ public class UserController {
 
     @GetMapping("/id-check")
     @Operation(summary = "아이디 확인", description = "아이디 존재여부 확인 (unauthenticated)")
-    public void studentIdCheck(
+    public ResponseEntity<String> studentIdCheck(
             @RequestParam String id
     ) {
         userService.idCheck(id);
+        return ResponseEntity.ok("사용가능한 아이디");
     }
 
 }
