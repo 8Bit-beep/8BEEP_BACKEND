@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,26 +59,26 @@ public class StudentController {
 
     @GetMapping("/cls")
     @Operation(summary = "반 조회", description = "학년 param로 반을 조회합니다.(teacher)")
-    public List<ClsByGradeRes> clsListByGrade(
+    public ResponseEntity<List<ClsByGradeRes>> clsListByGrade(
             @RequestParam int grade
     ){
-        return studentService.clsListByGrade(grade);
+        return ResponseEntity.ok(studentService.clsListByGrade(grade));
     }
 
     @GetMapping("/member")
     @Operation(summary = "반 구성원 조회", description = "학년-반으로 반 구성원 목록을 조회합니다. (teacher)")
-    public List<StudentByGradeClsRes> studentListByGradeCls(
+    public ResponseEntity<List<StudentByGradeClsRes>> studentListByGradeCls(
             @ModelAttribute StudentByGradeClsReq req
     ){
-        return studentService.studentListByGradeCls(req);
+        return ResponseEntity.ok(studentService.studentListByGradeCls(req));
     }
 
     @GetMapping("/name")
     @Operation(summary = "학생 조회", description = "학생이름으로 학생을 조회합니다.(teacher)")
-    public List<StudentByNameRes> studentListByName(
+    public ResponseEntity<List<StudentByNameRes>> studentListByName(
             @RequestParam String name
     ){
-        return studentService.studentListByName(name);
+        return ResponseEntity.ok(studentService.studentListByName(name));
     }
   
 }

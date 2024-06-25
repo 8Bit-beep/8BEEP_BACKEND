@@ -1,6 +1,8 @@
 package com.beep.beep.domain.beep.presentation;
 
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByFloorReq;
 import com.beep.beep.domain.beep.presentation.dto.request.InitializeAttendanceReq;
+import com.beep.beep.domain.beep.presentation.dto.request.RoomsByNameReq;
 import com.beep.beep.domain.beep.presentation.dto.response.RoomByFloorRes;
 import com.beep.beep.domain.beep.service.BeepService;
 import com.beep.beep.domain.beep.presentation.dto.request.EnterRoomReq;
@@ -11,7 +13,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,26 +63,26 @@ public class BeepController {
 
     @GetMapping("/rooms/name")
     @Operation(summary = "실 조회", description = "실 이름으로 실을 조회합니다.(teacher)")
-    public List<RoomVO> roomListByName(
-            @RequestParam String name
+    public ResponseEntity<List<RoomVO>> roomListByName(
+            @ModelAttribute RoomsByNameReq req
     ){
-        return beepService.roomListByName(name);
+        return ResponseEntity.ok().body(beepService.roomListByName(req));
     }
 
     @GetMapping("/rooms/floor")
     @Operation(summary = "실 조회", description = "n층으로 실을 조회합니다.(teacher)")
-    public List<RoomByFloorRes> roomListByFloor(
-            @RequestParam Integer floor
+    public ResponseEntity<List<RoomByFloorRes>> roomListByFloor(
+            @ModelAttribute RoomsByFloorReq req
     ){
-        return beepService.roomListByFloor(floor);
+        return ResponseEntity.ok().body(beepService.roomListByFloor(req));
     }
 
     @GetMapping("/attendances")
     @Operation(summary = "출석 조회", description = "실 코드로 입실한 학생목록 조회합니다. (teacher)")
-    public List<AttendanceByCodeRes> attendanceByCode(
+    public ResponseEntity<List<AttendanceByCodeRes>> attendanceByCode(
             @RequestParam String code
     ){
-        return beepService.attendanceByCode(code);
+        return ResponseEntity.ok().body(beepService.attendanceByCode(code));
     }
 
 }
