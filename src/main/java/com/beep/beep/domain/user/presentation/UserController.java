@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "/users")
 @RequiredArgsConstructor
@@ -57,11 +60,13 @@ public class UserController {
 
     @GetMapping("/id-check")
     @Operation(summary = "아이디 확인", description = "아이디 존재여부 확인 (unauthenticated)")
-    public ResponseEntity<String> studentIdCheck(
+    public ResponseEntity<Map<String, String>> studentIdCheck(
             @RequestParam String id
     ) {
         userService.idCheck(id);
-        return ResponseEntity.ok("사용가능한 아이디");
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "200");
+        return ResponseEntity.ok(response);
     }
 
 }
