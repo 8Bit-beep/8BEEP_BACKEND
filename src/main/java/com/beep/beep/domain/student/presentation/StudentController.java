@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,12 +37,16 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping("/id")
-    @ResponseStatus(HttpStatus.CREATED)
+//    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "학번 저장", description = "학번을 저장합니다. (student)")
-    public void saveStudentId(
+    public ResponseEntity<Map<String, String>> saveStudentId(
             @RequestBody SaveStudentIdReq req
     ){
         studentService.saveStudentId(req);
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "201");
+        response.put("message","학번 저장에 성공했습니다.");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("")
