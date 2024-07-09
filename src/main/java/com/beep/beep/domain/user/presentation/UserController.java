@@ -7,6 +7,7 @@ import com.beep.beep.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -56,10 +60,14 @@ public class UserController {
 
     @GetMapping("/id-check")
     @Operation(summary = "아이디 확인", description = "아이디 존재여부 확인 (unauthenticated)")
-    public void studentIdCheck(
+    public ResponseEntity<Map<String, String>> studentIdCheck(
             @RequestParam String id
     ) {
         userService.idCheck(id);
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "200");
+        response.put("message","사용할 수 있는 아이디입니다.");
+        return ResponseEntity.ok(response);
     }
 
 }

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -28,12 +32,15 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/sign-up/student")
-    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "학생 회원가입", description = "학생계정으로 회원가입합니다. (unauthenticated)")
-    public void studentSignUp(
+    public ResponseEntity<Map<String, String>> studentSignUp(
             @RequestBody SignUpReq req
     ){
         authService.studentSignUp(req);
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "201");
+        response.put("message", "학생 회원가입 요청이 성공했습니다.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/sign-up/teacher")

@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 
 public interface RoomRepository extends CrudRepository<Room,String> , RoomRepoCustom {
+    boolean existsByCode(String code);
 }

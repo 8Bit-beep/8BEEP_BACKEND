@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder @AllArgsConstructor
 public class RoomByFloorRes {
+    private Long idx;
     private String code;
     private String roomName;
 }

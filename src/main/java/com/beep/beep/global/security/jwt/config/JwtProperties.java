@@ -17,5 +17,4 @@ public class JwtProperties {
     private String prefix;
     private Long accessExp;
     private Long refreshExp;
-
 }
