@@ -3,6 +3,7 @@ package com.beep.beep.domain.beep.presentation;
 import com.beep.beep.domain.beep.presentation.dto.request.RoomsByFloorReq;
 import com.beep.beep.domain.beep.presentation.dto.request.InitializeAttendanceReq;
 import com.beep.beep.domain.beep.presentation.dto.request.RoomsByNameReq;
+import com.beep.beep.domain.beep.presentation.dto.response.CodeByUserRes;
 import com.beep.beep.domain.beep.presentation.dto.response.RoomByFloorRes;
 import com.beep.beep.domain.beep.service.BeepService;
 import com.beep.beep.domain.beep.presentation.dto.request.EnterRoomReq;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -35,6 +35,13 @@ import java.util.Map;
 public class BeepController {
 
     private final BeepService beepService;
+
+    @GetMapping("/attendances/code")
+    @Operation(summary = "내 입실/퇴실 조회", description = "내 현재 실 코드를 반환합니다.(student)")
+    public ResponseEntity<CodeByUserRes> getCode(
+    ) {
+        return ResponseEntity.ok().body(beepService.getCode());
+    }
 
     @PostMapping("/attendances")
     @Operation(summary = "출석정보 초기화", description = "출석정보 초기값을 설정합니다.(student)")

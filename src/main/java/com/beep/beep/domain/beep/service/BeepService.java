@@ -14,6 +14,7 @@ import com.beep.beep.domain.beep.presentation.dto.request.EnterRoomReq;
 import com.beep.beep.domain.beep.presentation.dto.request.ExitRoomReq;
 import com.beep.beep.domain.beep.presentation.dto.request.RoomsByNameReq;
 import com.beep.beep.domain.beep.presentation.dto.response.AttendanceByCodeRes;
+import com.beep.beep.domain.beep.presentation.dto.response.CodeByUserRes;
 import com.beep.beep.domain.beep.presentation.dto.response.RoomByFloorRes;
 import com.beep.beep.global.common.service.UserUtil;
 import jakarta.transaction.Transactional;
@@ -31,6 +32,12 @@ public class BeepService {
     private final UserUtil userUtil;
     private final RoomRepository roomRepository;
     private final AttendanceRepository attendanceRepository;
+
+    public CodeByUserRes getCode(){
+        String code = attendanceRepository.findByUserIdx(userUtil.getCurrentUser().getIdx()).getCode();
+        return CodeByUserRes.builder()
+                .code(code).build();
+    }
 
     public void initializeAttendance(InitializeAttendanceReq req){
         attendanceRepository.save(beepMapper.toAttendance(userUtil.findUserByEmail(req.getEmail())));
